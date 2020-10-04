@@ -19,16 +19,16 @@
   <div class="container-fluid">
    
     <ul class="nav navbar-nav ">
-      <li class="active" onclick="window.open('fuctionforql.php','_self')"><a>Home</a></li>
-      <li><a onclick="window.open('givetask', '_self')">Giao Bài Tập</a></li>
+      <li><a href="{{route('adminhome')}}">Home</a></li>
+      <li><a href="{{route('inforstudent')}}">Giao Bài Tập</a></li>
       <!-- <li><a onclick="window.open('message', '_self')">Xem Tin Nhắn</a></li> -->
-      <li><a href="{{route('adduser')}}">Hộp thư đến</a></li>
+      <li><a href="">Hộp thư đến</a></li>
       <li><a href="{{route('inforstudent')}}">Thông Tin Sinh Viên</a></li>
 
-      <li><a onclick="window.open('inforusers', '_self')">Thông Tin Người Dùng</a></li>
+      <li><a href="{{route('inforuser')}}">Thông Tin Người Dùng</a></li>
       
-      <li><a onclick="window.open('updateprofile', '_self')">Sửa Thông Tin Cá nhân</a></li>
-      <li><a onclick="window.open('logout', '_self')">Thoát</a></li>
+      <li><a href="{{route('getUpdateprofile',['id'=>Auth::user()->id])}}">Sửa Thông Tin Cá nhân</a></li>
+      <li><a href="{{route('logout')}}">Thoát</a></li>
     </ul>
   </div>
 </nav>
@@ -37,5 +37,6 @@
   @yield('content')
 </div>
 @endif
+@yield('script')
 </body>
 </html>

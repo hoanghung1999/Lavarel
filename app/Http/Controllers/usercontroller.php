@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\User;
 use Illuminate\Support\Facades\Redirect;
+use PhpParser\Node\Expr\FuncCall;
 
 class usercontroller extends Controller
 {
@@ -55,11 +56,38 @@ class usercontroller extends Controller
         $user->phone=$request->phone;
         $user->level=$request->level;
         $user->save();
-        return Redirect('adduser')->with('thongbao','thêm thành công');
+        return Redirect('inforstudent')->with('thongbao','thêm thành công');
     }
-    public function getUpdate($id){
+    public function getUpdateStudent($id){
         $user= User::find($id);
-        echo "hello";
         return view('admin.updatestudent',['user'=>$user]);
+    }
+    public function postUpdateStudent(Request $request,$id){
+    
+       
+        $user=User::find($id);
+        if($request->username!=$user->username){
+          $this->validate($request,[
+            'username'=>'required|unique:users,username'
+        ],[
+            'username.unique'=>" Tên Tài khoản đã tồn tại"
+        ]);   
+        }
+       $user->username=$request->username;
+        $user->name=$request->name;
+        $user->email=$request->email;
+        $user->phone=$request->phone;
+        $user->level=$request->level;
+        $user->save();
+        return redirect('student/update/'.$id)->with('thongbao','sua thanh cong');
+    }
+    public function deleteStudent($id){
+        $user=User::find($id);
+        $user->delete();
+        return redirect('inforstudent')->with('thongbao','Bạn đã xóa thành công');
+    }
+    public function getUpdateProfile($id){
+        $user=User::find($id);
+        return view('admin.updateprofile',['user'=>$user]);
     }
 }

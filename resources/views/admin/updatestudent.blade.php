@@ -18,28 +18,23 @@
 					{{session('thongbao')}}
 				</div>
 				@endif
-				<form method="post" action="{{route('adduser')}}">
+				<form method="post" action="{{route('postUpdateStudent',['id'=>$user->id])}}">
 					<div class="trungtam">
 						<label><b>Tên Tài Khoản:</b></label>
-						<input  required="true" type="text" class="" id="username" name="username" value="{{$user->name}}">
+						<input  required="true" type="text" class="" id="username" name="username" value="{{$user->username}}">
 					</div>
-					<div class="trungtam">
-						<label ><b>Mật Khẩu:</b></label>
-						<input type="password" class="" id="password" name="password" value="" required>
-					</div>
-
 					<div class="trungtam">
 						<label><b>Họ Tên:</b></label>
-						<input type="text" class="" id="name" name="name" value="" required>
+						<input type="text" class="" id="name" name="name" value="{{$user->name}}" required>
 					</div>
 
 					<div class="trungtam">
 						<label><b>Email:</b></label>
-						<input type="text" class="" id="email" name="email" value="" required>
+						<input type="text" class="" id="email" name="email" value="{{$user->email}}" required>
 					</div>
 					<div class="trungtam">
 						<label><b>SĐT:</b></label>
-						<input type="number" class="" id="sdt" name="phone" value=""required>
+						<input type="number" class="" id="sdt" name="phone" value="{{$user->phone}}"required>
 					</div>
                     <div class="trungtam">
 						<label><b>Chức Vụ:</b></label>
@@ -48,7 +43,7 @@
 							<option value="1">QL</option>
 						</select>
 					</div>
-					<button class="btn btn-success">Save</button>
+					<button class="btn btn-success">Lưu</button>
 					{{csrf_field()}}
 				</form>	
 			</div>

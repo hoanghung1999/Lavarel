@@ -18,7 +18,7 @@
 					{{session('thongbao')}}
 				</div>
 				@endif
-				<form method="post" action="{{route('adduser')}}">
+				<form method="post" action="{{route('postadduser')}}">
 					<div class="trungtam">
 						<label><b>Tên Tài Khoản:</b></label>
 						<input  required="true" type="text" class="" id="username" name="username" value="">

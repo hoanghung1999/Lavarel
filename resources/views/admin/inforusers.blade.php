@@ -16,10 +16,12 @@
 			</thead>
 			<tbody>
 			@if(isset($listuser))
-			
+			<?php
+			$stt=1;
+			?>
 			@foreach($listuser as $user)
 			<tr>
-				<td></td>
+				<td>{{$stt++}}</td>
 				<td>{{$user->name}}</td>
 				<td>
 					@if($user->level==1)
