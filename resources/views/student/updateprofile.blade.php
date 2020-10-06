@@ -1,4 +1,4 @@
-@extends('admin.adminview')
+@extends('student.studentview')
 @section('content')
 <div class="panel panel-primary">
 	<div class="panel-heading">
@@ -18,7 +18,7 @@
 			{{session('thongbao')}}
 		</div>
 		@endif
-		<form method="post" action="{{route('postUpdateProfile',['id'=>$user->id])}}">
+		<form method="post" action="{{route('postUpdateProfileForStudent',['id'=>$user->id])}}">
 			<div class="trungtam">
 				<label><b>Tên Tài Khoản:</b></label>
 				<input readonly="readonly" required="true" type="text" class="" id="username" name="username" value="{{$user->username}}">

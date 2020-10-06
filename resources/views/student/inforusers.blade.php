@@ -1,4 +1,4 @@
-@extends('admin.adminview')
+@extends('student.studentview')
 @section('content')
 
 <h2 class="text-center">Thông Tin Người Dùng Hệ Thống </h2>
@@ -31,7 +31,7 @@
 					@endif
 				</td>
 				
-<td><button class="btn btn-warning" onclick="window.open('admin/userdetail/{{$user->id}}','_self')">Chi tiết</button></td>
+<td><button class="btn btn-warning" onclick="window.open('student/userdetail/{{$user->id}}','_self')">Chi tiết</button></td>
 		</tr>
 			
 			@endforeach

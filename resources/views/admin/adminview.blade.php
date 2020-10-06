@@ -13,6 +13,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="{{asset('css/updateprofile.css')}}">
+  <link rel="stylesheet" href="{{asset('css/givetask.css')}}">
 </head>
 <body>
 <nav class="navbar navbar-inverse">
@@ -20,7 +21,7 @@
    
     <ul class="nav navbar-nav ">
       <li><a href="{{route('adminhome')}}">Home</a></li>
-      <li><a href="{{route('inforstudent')}}">Giao Bài Tập</a></li>
+      <li><a href="{{route('givetask')}}">Giao Bài Tập</a></li>
       <!-- <li><a onclick="window.open('message', '_self')">Xem Tin Nhắn</a></li> -->
       <li><a href="">Hộp thư đến</a></li>
       <li><a href="{{route('inforstudent')}}">Thông Tin Sinh Viên</a></li>
@@ -33,7 +34,7 @@
   </div>
 </nav>
 @if(Auth::check())
-<div class="container">
+<div class="container" style="margin: 0 auto;">
   @yield('content')
 </div>
 @endif

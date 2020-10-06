@@ -11,6 +11,10 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="{{asset('css/updateprofile.css')}}">
+  <link rel="stylesheet" href="{{asset('css/givetask.css')}}">
+
+
 </head>
 <body>
 <nav class="navbar navbar-inverse">
@@ -18,20 +22,19 @@
    
     <ul class="nav navbar-nav ">
       <li class="active" onclick="window.open('fuctionforsv.php','_self')"><a>Home</a></li>
-      <li><a onclick="window.open('recievetask.php', '_self')">Xem bài tập</a></li>
+      <li><a href="{{route('recievetask')}}">Xem bài tập</a></li>
       <li><a onclick="window.open('message.php', '_self')" >Xem tin nhắn</a></li>
 
       
-      <li><a onclick="window.open('inforuser.php', '_self')">Xem thông tin người dùng</a></li>
-      <li><a onclick="window.open('updateprofile.php', '_self')">Sửa thông tin cá nhân</a></li>
-      <li><a onclick="window.open('logout', '_self')">Thoát</a></li>
+      <li><a href="{{route('inforuserforstudent')}}">Xem thông tin người dùng</a></li>
+      <li><a  href="{{route('getUpdateProfileForStudent',['id'=>Auth::user()->id])}}">Sửa thông tin cá nhân</a></li>
+      <li><a href="{{route('logout')}}">Thoát</a></li>
     </ul>
   </div>
 </nav>
-<div class="container">
-  <!-- <h1 class="text-center " style='margin-top:10% ;color:red;'>Student:<b>{{Auth::user()->name}}</b></h1> -->
+<div class="container" style="margin: auto;">
   @yield('content')
 </div>
-
+@yield('script')
 </body>
 </html>
