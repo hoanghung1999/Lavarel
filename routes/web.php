@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\usercontroller;
+use App\message;
 use App\task;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -30,6 +31,12 @@ Route::get('student', function () {
 Route::get('admin', function () {
     return view('admin.homeadminview');
 })->name('adminhome');
+Route::get('student', function () {
+    return view('student.homestudentview');
+})->name('studenthome');
+
+Route::get('messages','usercontroller@getlistmessS')->name('messageStudent');
+Route::get('messagesA','usercontroller@getlistmessA')->name('messageAdmin');
 Route::get('logout', function () {
     return view('login');
 })->name('logout');
@@ -70,29 +77,41 @@ Route::post('updateprofileforstudent/{id}', 'usercontroller@postUpdateProfileFor
 //student get all list task
 Route::get('recievetask', 'usercontroller@getListTaskStudent')->name('recievetask');
 //admin and user
-Route::get("admin/userdetail/{id}", function () {
-    return view('admin.inforuserdetail');
-})->name('inforUserDetailforAdmin');
-Route::get("student/userdetail/{id}", function () {
-    return view('student.inforuserdetail');
-})->name('inforUserDetailforStudent');
+//get infor user for admin
+Route::get("admin/userdetail/{id}",'usercontroller@inforUserA')->name('inforUserDetailforAdmin');
+Route::get("student/userdetail/{id}",'usercontroller@inforUserS')->name('inforUserDetailforStudent');
 //
 
 Route::get("getDBtask",function(){
-    $idsv=8;
+    $idsv=7;
     $idtask=6;
     // $user=DB::table('users')->join('subtask','subtask.idsv','=','users.id')->select('users.name','subtask.id')->get();
-    $user=DB::table('subtask')->where('subtask.idsv','=',$idsv)->where('subtask.idtask',$idtask)->get();
-    if(sizeof($user)!=0){
-    echo var_dump($user[0]);
-    }
-    else
-    echo "ok";
-    echo now();
+    // $user=DB::table('subtask')->where('subtask.idsv','=',$idsv)->where('subtask.idtask',$idtask)->get();
+    // if(sizeof($user)!=0){
+    // echo var_dump($user[0]);
+    // }
+    // else
+    // echo "ok";
+    // echo now();
+    // $listsubmittask=DB::table('subtask')->join('users','subtask.idsv','users.id')->select('users.name','users.email','subtask.time','subtask.link')->where('subtask.idtask',$idsv)->get();
+    // $temp=DB::table('message')->join('users','users.id','message.idfrom')
+    // ->select('message.idfrom','users.name')->where('message.idto',Auth::user()->id)->distinct()->get();
+    $temp=DB::select('SELECT ms.idfrom,us1.name as name1,ms.idto,us2.name as name2,ms.message 
+    FROM message ms JOIN users us1 on ms.idfrom= us1.id 
+    JOIN users us2 ON ms.idto=us2.id 
+    WHERE (ms.idfrom=us1.id AND ms.idto=us2.id) 
+    OR (ms.idfrom=us2.id AND ms.idto=us1.id)');
+    var_dump($temp);
+    // echo sizeof($temp);
 }
 );
 // student submit task 
 Route::post("submittask/{id}",'usercontroller@submitTask')->name('submittask');
 //get file from student submit task
-Route::get('/{link}',function(){return view('admin.listtasksubmit');})->name('getfile');
-
+Route::get("/{link}",function(){})->name('getfile');
+//get message detail for student
+Route::get("messagedetail/{id}",'usercontroller@getMessDetailS')->name("getmessdetailS");
+Route::get("messagedetailA/{id}",'usercontroller@getMessDetailA')->name("getmessdetailA");
+//message
+Route::post('sentmess/{id}','usercontroller@postmessS')->name('postmess');
+Route::post('sentmessA/{id}','usercontroller@postmessA')->name('postmessA');

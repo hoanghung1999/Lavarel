@@ -21,9 +21,9 @@
   <div class="container-fluid">
    
     <ul class="nav navbar-nav ">
-      <li class="active" onclick="window.open('fuctionforsv.php','_self')"><a>Home</a></li>
+      <li><a href="{{route('studenthome')}}">Home</a></li>
       <li><a href="{{route('recievetask')}}">Xem bài tập</a></li>
-      <li><a onclick="window.open('message.php', '_self')" >Xem tin nhắn</a></li>
+      <li><a href="{{route('messageStudent')}}" >Hộp Thư đến</a></li>
 
       
       <li><a href="{{route('inforuserforstudent')}}">Xem thông tin người dùng</a></li>

@@ -23,7 +23,7 @@
       <li><a href="{{route('adminhome')}}">Home</a></li>
       <li><a href="{{route('givetask')}}">Giao Bài Tập</a></li>
       <!-- <li><a onclick="window.open('message', '_self')">Xem Tin Nhắn</a></li> -->
-      <li><a href="">Hộp thư đến</a></li>
+      <li><a href="{{route('messageAdmin')}}">Hộp thư đến</a></li>
       <li><a href="{{route('inforstudent')}}">Thông Tin Sinh Viên</a></li>
 
       <li><a href="{{route('inforuser')}}">Thông Tin Người Dùng</a></li>

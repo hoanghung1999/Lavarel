@@ -24,7 +24,8 @@
                 <td>{{$subtask->name}}</td>
                 <td>{{$subtask->email}}</td>
                 <td>{{$subtask->time}}</td>
-                <td><button class="btn btn-success"><a href="{{route('getfile',['link',$subtask->link])}}" a>FILE</button></td>
+                
+                <td><button class="btn btn-success"><a href='{{route("getfile",["link"=>$subtask->link])}}'>File<a></button></a></td>
             </tr>
             @endforeach
         </tbody>

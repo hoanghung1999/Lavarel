@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\chatmessage;
+use App\message as AppMessage;
 use App\subtask;
 use App\task;
 use Illuminate\Contracts\Session\Session;
@@ -10,6 +12,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 use App\User;
+use GuzzleHttp\Psr7\Message;
+use Illuminate\Mail\Events\MessageSent;
 use Illuminate\Support\Facades\Redirect;
 use PhpParser\Node\Expr\FuncCall;
 
@@ -148,8 +152,12 @@ class usercontroller extends Controller
     }
     //show list submit task for admin
     public function getListSubmitTask($id){
-        $listsubmittask=DB::table('subtask')->join('users','subtask.idsv','users.id')->select('users.name','users.email','subtask.time','subtask.link')->get();
+        $listsubmittask=DB::table('subtask')->join('users','subtask.idsv','users.id')->where('subtask.idtask',$id)->select('users.name','users.email','subtask.time','subtask.link')->get();
         return view('admin.listsubmittask',['listsubmittask'=>$listsubmittask]);
+    }
+    //admin get file student submit
+    public function getfile($link){
+        echo "hello";
     }
 
     //show list task in view for admin
@@ -217,5 +225,60 @@ class usercontroller extends Controller
             }
             return redirect("recievetask")->with('thongbao', 'Bạn đã nộp bài thành công');
         }
+    }
+    public function getlistmessS(){
+        $listUserChatWithMe=DB::table('message')->join('users','users.id','message.idfrom')
+        ->select('message.idfrom','users.name')->where('message.idto',Auth::user()->id)->distinct()->get();
+        return view('student.message',['listUserChatWithMe'=>$listUserChatWithMe]);
+    }
+    public function getlistmessA(){
+        $listUserChatWithMe=DB::table('message')->join('users','users.id','message.idfrom')
+        ->select('message.idfrom','users.name')->where('message.idto',Auth::user()->id)->distinct()->get();
+        return view('admin.message',['listUserChatWithMe'=>$listUserChatWithMe]);
+    }
+    public function getMessDetailS($id){
+        $idfrom=$id;
+        $idto=Auth::user()->id;
+        $listmess=DB::select('SELECT ms.idfrom,us1.name as name1,ms.idto,us2.name as name2,ms.message 
+        FROM message ms JOIN users us1 on ms.idfrom= us1.id 
+        JOIN users us2 ON ms.idto=us2.id 
+        WHERE (ms.idfrom='.$idfrom .' AND ms.idto='.$idto.') 
+        OR (ms.idfrom='.$idto.' AND ms.idto='.$idfrom.')');
+        return view('student.messagedetail',["listmess"=>$listmess,'idfrom'=>$id]);
+    }
+    public function getMessDetailA($id){
+        $idfrom=$id;
+        $idto=Auth::user()->id;
+        $listmess=DB::select('SELECT ms.idfrom,us1.name as name1,ms.idto,us2.name as name2,ms.message 
+        FROM message ms JOIN users us1 on ms.idfrom= us1.id 
+        JOIN users us2 ON ms.idto=us2.id 
+        WHERE (ms.idfrom='.$idfrom .' AND ms.idto='.$idto.') 
+        OR (ms.idfrom='.$idto.' AND ms.idto='.$idfrom.')');
+        return view('admin.messagedetail',["listmess"=>$listmess,'idfrom'=>$id]);
+    }
+    public function postmessS(Request $request,$id){
+        $mess = new chatmessage();
+        $mess->message=$request->valuemess;
+        $mess->idfrom=Auth::user()->id;
+        $mess->idto=$id;
+        $mess->save();
+        return redirect("messagedetail/".$id);
+    }
+    public function postmessA(Request $request,$id){
+        $mess = new chatmessage();
+        $mess->message=$request->valuemess;
+        $mess->idfrom=Auth::user()->id;
+        $mess->idto=$id;
+        $mess->save();
+        return redirect("messagedetailA/".$id);
+    }
+
+    public function inforUserA($id){
+        $user=User::find($id);
+        return view('admin.inforuserdetail',['user'=>$user]);
+    }
+    public function inforUserS($id){
+        $user=User::find($id);
+        return view('student.inforuserdetail',['user'=>$user]);
     }
 }
