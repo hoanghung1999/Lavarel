@@ -243,7 +243,7 @@ class usercontroller extends Controller
         FROM message ms JOIN users us1 on ms.idfrom= us1.id 
         JOIN users us2 ON ms.idto=us2.id 
         WHERE (ms.idfrom='.$idfrom .' AND ms.idto='.$idto.') 
-        OR (ms.idfrom='.$idto.' AND ms.idto='.$idfrom.')');
+        OR (ms.idfrom='.$idto.' AND ms.idto='.$idfrom.') ORDER BY ms.id');
         return view('student.messagedetail',["listmess"=>$listmess,'idfrom'=>$id]);
     }
     public function getMessDetailA($id){
@@ -253,7 +253,7 @@ class usercontroller extends Controller
         FROM message ms JOIN users us1 on ms.idfrom= us1.id 
         JOIN users us2 ON ms.idto=us2.id 
         WHERE (ms.idfrom='.$idfrom .' AND ms.idto='.$idto.') 
-        OR (ms.idfrom='.$idto.' AND ms.idto='.$idfrom.')');
+        OR (ms.idfrom='.$idto.' AND ms.idto='.$idfrom.') ORDER BY ms.id');
         return view('admin.messagedetail',["listmess"=>$listmess,'idfrom'=>$id]);
     }
     public function postmessS(Request $request,$id){
@@ -275,6 +275,7 @@ class usercontroller extends Controller
     public function deleteMessA($id,$idto){
         $mess=chatmessage::find($id);
         $mess->delete();
+        echo $id.'<br>';
         echo $idto;
         return redirect("messagedetailA/".$idto);
     }
