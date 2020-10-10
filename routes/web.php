@@ -115,3 +115,7 @@ Route::get("messagedetailA/{id}",'usercontroller@getMessDetailA')->name("getmess
 //message
 Route::post('sentmess/{id}','usercontroller@postmessS')->name('postmess');
 Route::post('sentmessA/{id}','usercontroller@postmessA')->name('postmessA');
+
+Route::get("deletemessA/{id}{idto}","usercontroller@deleteMessA")->name("deleteMessA");
+Route::get("deletemessS/{id}{idto}","usercontroller@deleteMessS")->name("deleteMessS");
+

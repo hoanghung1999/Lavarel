@@ -239,7 +239,7 @@ class usercontroller extends Controller
     public function getMessDetailS($id){
         $idfrom=$id;
         $idto=Auth::user()->id;
-        $listmess=DB::select('SELECT ms.idfrom,us1.name as name1,ms.idto,us2.name as name2,ms.message 
+        $listmess=DB::select('SELECT ms.id,ms.idfrom,us1.name as name1,ms.idto,us2.name as name2,ms.message 
         FROM message ms JOIN users us1 on ms.idfrom= us1.id 
         JOIN users us2 ON ms.idto=us2.id 
         WHERE (ms.idfrom='.$idfrom .' AND ms.idto='.$idto.') 
@@ -249,7 +249,7 @@ class usercontroller extends Controller
     public function getMessDetailA($id){
         $idfrom=$id;
         $idto=Auth::user()->id;
-        $listmess=DB::select('SELECT ms.idfrom,us1.name as name1,ms.idto,us2.name as name2,ms.message 
+        $listmess=DB::select('SELECT ms.id,ms.idfrom,us1.name as name1,ms.idto,us2.name as name2,ms.message 
         FROM message ms JOIN users us1 on ms.idfrom= us1.id 
         JOIN users us2 ON ms.idto=us2.id 
         WHERE (ms.idfrom='.$idfrom .' AND ms.idto='.$idto.') 
@@ -271,6 +271,18 @@ class usercontroller extends Controller
         $mess->idto=$id;
         $mess->save();
         return redirect("messagedetailA/".$id);
+    }
+    public function deleteMessA($id,$idto){
+        $mess=chatmessage::find($id);
+        $mess->delete();
+        echo $idto;
+        return redirect("messagedetailA/".$idto);
+    }
+    public function deleteMessS($id,$idto){
+        $mess=chatmessage::find($id);
+        $mess->delete();
+        echo $idto;
+        return redirect("messagedetail/".$idto);
     }
 
     public function inforUserA($id){

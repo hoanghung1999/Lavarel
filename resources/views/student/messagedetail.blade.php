@@ -7,6 +7,8 @@
     <p>YOU</p>
     <img src="{{asset('img/user.jfif')}}" alt="Avatar" style="width:100%;">
     <p>{{$mess->message}}</p>
+    <a style="margin-left: 93%;" href="{{route('deleteMessS',['id'=>$mess->id,'idto'=>$mess->idto])}}">Xóa</a>
+
 </div>
 @else
 <div class="container  body" style="margin: auto;">
